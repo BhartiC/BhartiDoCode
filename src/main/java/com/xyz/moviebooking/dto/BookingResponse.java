@@ -10,12 +10,9 @@ public class BookingResponse {
     private final int seatCount;
     private final java.util.List<String> seatNumbers;
     private final LocalDateTime bookedAt;
-    private final String paymentId;
-    private final String paymentStatus;
 
     public BookingResponse(String bookingId, String showtimeId, String theaterId, String customerName, int seatCount,
-                           java.util.List<String> seatNumbers, LocalDateTime bookedAt, String paymentId,
-                           String paymentStatus) {
+                           java.util.List<String> seatNumbers, LocalDateTime bookedAt) {
         this.bookingId = bookingId;
         this.showtimeId = showtimeId;
         this.theaterId = theaterId;
@@ -23,8 +20,6 @@ public class BookingResponse {
         this.seatCount = seatCount;
         this.seatNumbers = seatNumbers;
         this.bookedAt = bookedAt;
-        this.paymentId = paymentId;
-        this.paymentStatus = paymentStatus;
     }
 
     public String getBookingId() {
@@ -53,13 +48,5 @@ public class BookingResponse {
 
     public LocalDateTime getBookedAt() {
         return bookedAt;
-    }
-
-    public String getPaymentId() {
-        return paymentId;
-    }
-
-    public String getPaymentStatus() {
-        return paymentStatus;
     }
 }

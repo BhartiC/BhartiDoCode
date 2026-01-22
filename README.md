@@ -1,6 +1,4 @@
-# XYZ Online Movie Booking Platform (Starter)
 
-This is a **basic Spring Boot starter** for an online movie ticket booking platform. It is designed for B2C customers to browse movies by city, language, and genre and book seats in advance with a smooth flow.
 ## How the flow works (simple explanation)
 
 1. **Browse movies**: `/api/movies` returns movies and supports filters like city, language, and genre.

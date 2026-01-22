@@ -4,8 +4,6 @@ public class BookingRequest {
     private String showtimeId;
     private String theaterId;
     private String customerName;
-    private String paymentMethod;
-    private double amount;
     private java.util.List<String> seatNumbers;
 
     public String getShowtimeId() {
@@ -30,22 +28,6 @@ public class BookingRequest {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
-    }
-
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
     }
 
     public java.util.List<String> getSeatNumbers() {

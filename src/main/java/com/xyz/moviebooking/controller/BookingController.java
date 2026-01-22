@@ -20,15 +20,12 @@ public class BookingController {
 
     @PostMapping
     public BookingResponse createBooking(@RequestBody BookingRequest request) {
-        com.xyz.moviebooking.service.BookingWithPayment bookingWithPayment = bookingService.createBooking(
+        Booking booking = bookingService.createBooking(
                 request.getShowtimeId(),
                 request.getTheaterId(),
                 request.getCustomerName(),
-                request.getSeatNumbers(),
-                request.getPaymentMethod(),
-                request.getAmount()
+                request.getSeatNumbers()
         );
-        Booking booking = bookingWithPayment.getBooking();
         return new BookingResponse(
                 booking.getId(),
                 booking.getShowtimeId(),
@@ -36,9 +33,7 @@ public class BookingController {
                 booking.getCustomerName(),
                 booking.getSeatCount(),
                 booking.getSeatNumbers(),
-                booking.getBookedAt(),
-                bookingWithPayment.getPaymentResult().getPaymentId(),
-                bookingWithPayment.getPaymentResult().getStatus()
+                booking.getBookedAt()
         );
     }
 }

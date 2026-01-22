@@ -19,19 +19,16 @@ public class BookingService {
     private final MovieCatalogService catalogService;
     private final SeatRepository seatRepository;
     private final BookingRepository bookingRepository;
-    private final PaymentService paymentService;
 
     public BookingService(MovieCatalogService catalogService, SeatRepository seatRepository,
-                          BookingRepository bookingRepository, PaymentService paymentService) {
+                          BookingRepository bookingRepository) {
         this.catalogService = catalogService;
         this.seatRepository = seatRepository;
         this.bookingRepository = bookingRepository;
-        this.paymentService = paymentService;
     }
 
     @Transactional
-    public BookingWithPayment createBooking(String showtimeId, String theaterId, String customerName,
-                                            List<String> seatNumbers, String paymentMethod, double amount) {
+    public Booking createBooking(String showtimeId, String theaterId, String customerName, List<String> seatNumbers) {
         Showtime showtime = catalogService.getShowtime(showtimeId);
         if (!showtime.getTheaterId().equals(theaterId)) {
             throw new IllegalArgumentException("Showtime does not belong to selected theater");
@@ -55,9 +52,8 @@ public class BookingService {
         seatRepository.saveAll(seats);
 
         int seatCount = normalizedSeats.size();
-        String bookingId = UUID.randomUUID().toString();
         BookingEntity bookingEntity = new BookingEntity(
-                bookingId,
+                UUID.randomUUID().toString(),
                 showtime.getId(),
                 showtime.getTheaterId(),
                 customerName,
@@ -66,8 +62,7 @@ public class BookingService {
                 LocalDateTime.now()
         );
         BookingEntity saved = bookingRepository.save(bookingEntity);
-        PaymentResult paymentResult = paymentService.charge(bookingId, paymentMethod, amount);
-        Booking booking = new Booking(
+        return new Booking(
                 saved.getBookingId(),
                 saved.getShowtimeId(),
                 saved.getTheaterId(),
@@ -76,6 +71,5 @@ public class BookingService {
                 saved.getSeatNumbers(),
                 saved.getBookedAt()
         );
-        return new BookingWithPayment(booking, paymentResult);
     }
 }
